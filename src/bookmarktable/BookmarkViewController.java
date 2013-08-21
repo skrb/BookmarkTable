@@ -22,6 +22,7 @@ public class BookmarkViewController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // テーブルに表示するブックマーク
         bookmarks.addAll(
             new Bookmark("Google", "https://www.google.co.jp/"),
             new Bookmark("Yahoo!", "http://www.yahoo.co.jp/"),
@@ -29,10 +30,11 @@ public class BookmarkViewController implements Initializable {
             new Bookmark("Twitter", "https://twitter.com/")
         );
         
+        // カラムとBookmarkクラスのプロパティの対応付け
         siteColumn.setCellValueFactory(new PropertyValueFactory("site"));
         urlColumn.setCellValueFactory(new PropertyValueFactory("url"));
         
+        // テーブルにブックマークをセット
         table.setItems(bookmarks);
     }    
-    
 }
