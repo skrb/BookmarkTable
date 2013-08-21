@@ -6,5 +6,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml" fx:controller="bookmarktable.BookmarkViewController">
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="bookmarktable.BookmarkViewController">
+  <top>
+    <TableView fx:id="table" prefHeight="200.0">
+      <columns>
+        <TableColumn fx:id="siteColumn" minWidth="50.0" prefWidth="300.0" text="Site" />
+        <TableColumn fx:id="urlColumn" minWidth="100.0" prefWidth="500.0" text="URL" />
+      </columns>
+    </TableView>
+  </top>
 </BorderPane>
