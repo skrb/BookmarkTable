@@ -2,10 +2,12 @@ package bookmarktable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -13,6 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.util.Duration;
 
 public class BookmarkViewController implements Initializable {
     ObservableList<Bookmark> bookmarks = FXCollections.observableArrayList();
@@ -48,6 +51,7 @@ public class BookmarkViewController implements Initializable {
         // WebEngineをWebViewから取得
         engine = webView.getEngine();
         
+        // テーブルの選択位置が変化したら、WebViewでそのサイトを表示
         TableView.TableViewSelectionModel<Bookmark> selectionModel = table.getSelectionModel();
         selectionModel.selectedItemProperty().addListener(new ChangeListener<Bookmark>() {
             @Override
@@ -56,5 +60,24 @@ public class BookmarkViewController implements Initializable {
                 engine.load(url);
             }
         });
+
+        // Webページのロードの状態に応じて、アニメーションを行う
+        Worker<Void> loadWorker = engine.getLoadWorker();
+        loadWorker.stateProperty().addListener(new ChangeListener<Worker.State>() {
+            @Override
+            public void changed(ObservableValue<? extends Worker.State> ov, Worker.State old, Worker.State next) {
+                if (next == Worker.State.SCHEDULED) {
+                    // 次のページのローディングが始まったら、現在表示しているページをフェードアウト
+                    FadeTransition fadeOut = new FadeTransition(Duration.millis(1_000), webView);
+                    fadeOut.setToValue(0.0);
+                    fadeOut.play();
+                } else if (next == Worker.State.SUCCEEDED) {
+                    // ページのローディングが完了したら、フェードイン
+                    FadeTransition fadeIn = new FadeTransition(Duration.millis(1_000), webView);
+                    fadeIn.setToValue(1.0);
+                    fadeIn.play();
+                }
+            }
+        });        
     }    
 }
