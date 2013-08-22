@@ -9,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 public class BookmarkViewController implements Initializable {
     ObservableList<Bookmark> bookmarks = FXCollections.observableArrayList();
@@ -19,6 +21,10 @@ public class BookmarkViewController implements Initializable {
     private TableColumn<Bookmark, String> siteColumn;
     @FXML
     private TableColumn<Bookmark, String> urlColumn;
+    @FXML
+    private WebView webView;
+    
+    private WebEngine engine;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -36,5 +42,7 @@ public class BookmarkViewController implements Initializable {
         
         // テーブルにブックマークをセット
         table.setItems(bookmarks);
+        
+        engine = webView.getEngine();
     }    
 }

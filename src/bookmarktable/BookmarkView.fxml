@@ -5,13 +5,17 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.web.*?>
 
 <BorderPane prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="bookmarktable.BookmarkViewController">
+  <center>
+    <WebView fx:id="webView" prefHeight="200.0" prefWidth="200.0" />
+  </center>
   <top>
     <TableView fx:id="table" prefHeight="200.0">
       <columns>
-        <TableColumn fx:id="siteColumn" minWidth="50.0" prefWidth="290.0" text="Site" />
-        <TableColumn fx:id="urlColumn" minWidth="100.0" prefWidth="490.0" text="URL" />
+        <TableColumn minWidth="50.0" prefWidth="290.0" text="Site" fx:id="siteColumn" />
+        <TableColumn minWidth="100.0" prefWidth="490.0" text="URL" fx:id="urlColumn" />
       </columns>
     </TableView>
   </top>
