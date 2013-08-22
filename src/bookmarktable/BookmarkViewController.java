@@ -2,6 +2,8 @@ package bookmarktable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -43,6 +45,16 @@ public class BookmarkViewController implements Initializable {
         // テーブルにブックマークをセット
         table.setItems(bookmarks);
         
+        // WebEngineをWebViewから取得
         engine = webView.getEngine();
+        
+        TableView.TableViewSelectionModel<Bookmark> selectionModel = table.getSelectionModel();
+        selectionModel.selectedItemProperty().addListener(new ChangeListener<Bookmark>() {
+            @Override
+            public void changed(ObservableValue<? extends Bookmark> value, Bookmark old, Bookmark next) {
+                String url = next.getUrl();
+                engine.load(url);
+            }
+        });
     }    
 }
