@@ -13,8 +13,9 @@ public class BookmarkTable extends Application {
         BorderPane root = FXMLLoader.load(getClass().getResource("BookmarkView.fxml"));
         
         Scene scene = new Scene(root);
-        
         stage.setScene(scene);
+        
+        stage.setTitle("Bookmark Table");
         stage.show();
     }
 
