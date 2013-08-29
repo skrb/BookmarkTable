@@ -56,8 +56,10 @@ public class BookmarkViewController implements Initializable {
         selectionModel.selectedItemProperty().addListener(new ChangeListener<Bookmark>() {
             @Override
             public void changed(ObservableValue<? extends Bookmark> value, Bookmark old, Bookmark next) {
-                String url = next.getUrl();
-                engine.load(url);
+                if (next != null) {
+                    String url = next.getUrl();
+                    engine.load(url);
+                }
             }
         });
 
